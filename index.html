@@ -21,7 +21,6 @@
         </div>
       </div>
       <div id="unity-footer">
-        <p id="unity-message-text"></p>
         <button id="entervr" value="Enter VR" disabled>VR</button>
       </div>
     </div>
@@ -37,7 +36,7 @@
         productName: "SolonWebXR",
         productVersion: "0.1",
       };
-      var unityMessageText = document.querySelector("#unity-message-text");
+
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
       var canvasContainer = document.querySelector("#unity-canvas-container");
@@ -69,21 +68,10 @@
       document.body.appendChild(script);
       
       let enterVRButton = document.getElementById('entervr');
-      let webGlVersion = window.location.search.indexOf('v=2') > 0 ? 2 : 1;
-      
+
       document.addEventListener('onVRSupportedCheck', function (event) {
         enterVRButton.disabled = !event.detail.supported;
-        
-        var canvas = document.createElement("canvas");
-        
-        var gl = canvas.getContext("webgl2") || canvas.getContext("experimental-webgl");
-        if (gl && gl instanceof WebGL2RenderingContext){
-         unityMessageText.innerHTML = "Your browser supports WEBGL version"; 
-        }
-        else {
-          unityMessageText.innerHTML = "Your browser is not supports WEBGL";
-        }
-        }, false);
+      }, false);
       enterVRButton.addEventListener('click', function (event) {
         document.dispatchEvent(new CustomEvent('toggleVR', {}));
       }, false);
